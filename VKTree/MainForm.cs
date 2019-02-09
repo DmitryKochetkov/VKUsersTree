@@ -18,11 +18,25 @@ namespace VKTree
     public partial class MainForm : Form
     {
         VkApi vk = new VkApi();
-        
+        Graph<long> graph = new Graph<long>();
 
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        public void Cycle(long[] arrid)
+        {
+            var p = vk.Users.Get(arrid);
+            foreach (User u in p)
+            {
+                graph.AddVertex(u.Id);
+                var f = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
+                {
+                    UserId = u.Id,
+                    Fields = ProfileFields.FirstName,
+                });
+            }
         }
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -32,6 +46,8 @@ namespace VKTree
                 MessageBox.Show("Cannot resolve field User ID!", "Error");
                 return;
             }
+            graph.AddVertex(id);
+
             var p = vk.Users.Get(new long[] { id }).FirstOrDefault();
             listBox1.Items.Add(p.FirstName + " " + p.LastName);
             var users = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams

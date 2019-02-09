@@ -157,7 +157,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 448);
+            this.ClientSize = new System.Drawing.Size(798, 390);
             this.Controls.Add(this.TokenReceived);
             this.Controls.Add(this.GetTokenButton);
             this.Controls.Add(this.PassTextBox);
