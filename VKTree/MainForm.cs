@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,9 @@ namespace VKTree
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+            listBoxV.Items.Clear();
+            listBoxE.Items.Clear();
+            graph.Clear();
             uint errors = 0;
             if (!Int64.TryParse(UserIDTextBox.Text, out long id))
             {
@@ -56,6 +60,8 @@ namespace VKTree
             this.Hide();
             Progress p = new Progress();
             p.Show();
+            Stopwatch w = new Stopwatch();
+            w.Start();
             graph.AddVertex(id);
             var f = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
             {
@@ -80,41 +86,22 @@ namespace VKTree
                         graph.AddEdge(u.Id, n);
                     }
                 }
-                catch (VkNet.Exception.CannotBlacklistYourselfException)
+                catch// (VkNet.Exception.CannotBlacklistYourselfException)
                 {
-                    //MessageBox.Show("Ошибка");
                     errors++;
                 }
             }
             
-            var pizda = vk.Users.Get(graph.edges.Keys.ToArray<long>());
-            foreach (var x in pizda)
+            var vertex = vk.Users.Get(graph.edges.Keys.ToArray<long>());
+            foreach (var x in vertex)
             {
                 listBoxV.Items.Add(x.Id + " " + x.FirstName + " " + x.LastName);
             }
             ErrorLabel.Text = "Errors: " + errors.ToString();
+            w.Stop();
+            TimeLabel.Text = "Time: " + w.Elapsed.Minutes + "m " + w.Elapsed.Seconds + "s ";
             p.Close();
             this.Show();
-            
-            //var p = vk.Users.Get(new long[] { id }).FirstOrDefault();
-            ////listBox1.Items.Add(p.FirstName + " " + p.LastName);
-            //var users = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
-            //{
-            //    UserId = id,
-            //    Fields = ProfileFields.FirstName,
-            //});
-            //foreach (User u in users)
-            //{
-            //    //listBox1.Items.Add(u.FirstName + " " + u.LastName);
-            //    graph.AddVertex(u.Id);
-            //    graph.AddEdge(id, u.Id);
-            //    var ufriends = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
-            //    {
-            //        UserId = u.Id,
-            //        Fields = ProfileFields.FirstName,
-            //    });
-
-            //}
         }
 
         private void GetTokenButton_Click(object sender, EventArgs e)

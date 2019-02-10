@@ -45,6 +45,9 @@
             this.listBoxE = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ErrorLabel = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.TimeLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,7 +84,7 @@
             // 
             this.listBoxV.FormattingEnabled = true;
             this.listBoxV.ItemHeight = 15;
-            this.listBoxV.Location = new System.Drawing.Point(15, 26);
+            this.listBoxV.Location = new System.Drawing.Point(15, 44);
             this.listBoxV.Name = "listBoxV";
             this.listBoxV.Size = new System.Drawing.Size(205, 274);
             this.listBoxV.TabIndex = 3;
@@ -185,13 +188,18 @@
             // 
             this.listBoxE.FormattingEnabled = true;
             this.listBoxE.ItemHeight = 15;
-            this.listBoxE.Location = new System.Drawing.Point(226, 26);
+            this.listBoxE.Items.AddRange(new object[] {
+            "Choose a vertex."});
+            this.listBoxE.Location = new System.Drawing.Point(226, 44);
             this.listBoxE.Name = "listBoxE";
             this.listBoxE.Size = new System.Drawing.Size(200, 274);
             this.listBoxE.TabIndex = 14;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.TimeLabel);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.ErrorLabel);
             this.groupBox1.Controls.Add(this.listBoxV);
             this.groupBox1.Controls.Add(this.listBoxE);
@@ -206,11 +214,40 @@
             // ErrorLabel
             // 
             this.ErrorLabel.AutoSize = true;
-            this.ErrorLabel.Location = new System.Drawing.Point(186, 321);
+            this.ErrorLabel.Location = new System.Drawing.Point(124, 328);
             this.ErrorLabel.Name = "ErrorLabel";
             this.ErrorLabel.Size = new System.Drawing.Size(53, 15);
             this.ErrorLabel.TabIndex = 15;
             this.ErrorLabel.Text = "Errors: 0";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(84, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 16);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Vertexes";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(291, 19);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 16);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Edges";
+            // 
+            // TimeLabel
+            // 
+            this.TimeLabel.AutoSize = true;
+            this.TimeLabel.Location = new System.Drawing.Point(227, 328);
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(54, 15);
+            this.TimeLabel.TabIndex = 18;
+            this.TimeLabel.Text = "Time: 0s";
             // 
             // MainForm
             // 
@@ -262,6 +299,9 @@
         private System.Windows.Forms.ListBox listBoxE;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label ErrorLabel;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label TimeLabel;
     }
 }
 

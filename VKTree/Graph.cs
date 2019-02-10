@@ -31,5 +31,10 @@ namespace VKTree
             edges[x1].Add(x2);
             edges[x2].Add(x1);
         }
+
+        public void Clear()
+        {
+            edges.Clear();
+        }
     }
 }
