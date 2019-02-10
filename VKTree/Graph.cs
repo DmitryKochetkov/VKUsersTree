@@ -8,7 +8,7 @@ namespace VKTree
 {
     class Graph<T>
     {
-        private Dictionary<T, HashSet<T>> edges;
+        public Dictionary<T, HashSet<T>> edges;
 
         public Graph()
         {

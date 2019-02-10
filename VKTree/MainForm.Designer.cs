@@ -31,7 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.UserIDTextBox = new System.Windows.Forms.TextBox();
             this.StartButton = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxV = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -40,6 +40,12 @@
             this.PassTextBox = new System.Windows.Forms.TextBox();
             this.GetTokenButton = new System.Windows.Forms.Button();
             this.TokenReceived = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.DepthTextBox = new System.Windows.Forms.TextBox();
+            this.listBoxE = new System.Windows.Forms.ListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ErrorLabel = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -58,11 +64,12 @@
             this.UserIDTextBox.Name = "UserIDTextBox";
             this.UserIDTextBox.Size = new System.Drawing.Size(196, 20);
             this.UserIDTextBox.TabIndex = 1;
+            this.UserIDTextBox.Text = "110796828";
             // 
             // StartButton
             // 
             this.StartButton.Enabled = false;
-            this.StartButton.Location = new System.Drawing.Point(684, 33);
+            this.StartButton.Location = new System.Drawing.Point(550, 69);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(75, 23);
             this.StartButton.TabIndex = 2;
@@ -70,13 +77,15 @@
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
-            // listBox1
+            // listBoxV
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(488, 96);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(180, 238);
-            this.listBox1.TabIndex = 3;
+            this.listBoxV.FormattingEnabled = true;
+            this.listBoxV.ItemHeight = 15;
+            this.listBoxV.Location = new System.Drawing.Point(15, 26);
+            this.listBoxV.Name = "listBoxV";
+            this.listBoxV.Size = new System.Drawing.Size(205, 274);
+            this.listBoxV.TabIndex = 3;
+            this.listBoxV.SelectedIndexChanged += new System.EventHandler(this.listBoxV_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -153,11 +162,64 @@
             this.TokenReceived.TabIndex = 11;
             this.TokenReceived.Text = "Have no access token!";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(405, 71);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(63, 20);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Depth:";
+            // 
+            // DepthTextBox
+            // 
+            this.DepthTextBox.Location = new System.Drawing.Point(472, 71);
+            this.DepthTextBox.MaxLength = 3;
+            this.DepthTextBox.Name = "DepthTextBox";
+            this.DepthTextBox.Size = new System.Drawing.Size(49, 20);
+            this.DepthTextBox.TabIndex = 13;
+            this.DepthTextBox.Text = "1";
+            // 
+            // listBoxE
+            // 
+            this.listBoxE.FormattingEnabled = true;
+            this.listBoxE.ItemHeight = 15;
+            this.listBoxE.Location = new System.Drawing.Point(226, 26);
+            this.listBoxE.Name = "listBoxE";
+            this.listBoxE.Size = new System.Drawing.Size(200, 274);
+            this.listBoxE.TabIndex = 14;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.ErrorLabel);
+            this.groupBox1.Controls.Add(this.listBoxV);
+            this.groupBox1.Controls.Add(this.listBoxE);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox1.Location = new System.Drawing.Point(345, 113);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(442, 353);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Output";
+            // 
+            // ErrorLabel
+            // 
+            this.ErrorLabel.AutoSize = true;
+            this.ErrorLabel.Location = new System.Drawing.Point(186, 321);
+            this.ErrorLabel.Name = "ErrorLabel";
+            this.ErrorLabel.Size = new System.Drawing.Size(53, 15);
+            this.ErrorLabel.TabIndex = 15;
+            this.ErrorLabel.Text = "Errors: 0";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 390);
+            this.ClientSize = new System.Drawing.Size(797, 478);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.DepthTextBox);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.TokenReceived);
             this.Controls.Add(this.GetTokenButton);
             this.Controls.Add(this.PassTextBox);
@@ -166,7 +228,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.UserIDTextBox);
             this.Controls.Add(this.label1);
@@ -175,6 +236,8 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VKTree";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,7 +248,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox UserIDTextBox;
         private System.Windows.Forms.Button StartButton;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBoxV;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -194,6 +257,11 @@
         private System.Windows.Forms.TextBox PassTextBox;
         private System.Windows.Forms.Button GetTokenButton;
         private System.Windows.Forms.Label TokenReceived;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox DepthTextBox;
+        private System.Windows.Forms.ListBox listBoxE;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label ErrorLabel;
     }
 }
 
