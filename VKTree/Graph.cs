@@ -23,7 +23,8 @@ namespace VKTree
 
         public void AddVertex(T x)
         {
-            edges[x] = new HashSet<T>();
+            if (!edges.ContainsKey(x))
+                edges[x] = new HashSet<T>();
         }
 
         public void AddEdge(T x1, T x2)
