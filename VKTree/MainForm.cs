@@ -19,6 +19,7 @@ namespace VKTree
     public partial class MainForm : Form
     {
         VkApi vk = new VkApi();
+        //Graph<User> graph = new Graph<User>();
         Graph<long> graph = new Graph<long>();
 
         public MainForm()
@@ -26,19 +27,35 @@ namespace VKTree
             InitializeComponent();
         }
 
-        public int Cycle(long[] arrid)
+        public uint FillVertex(long id, int now, int depth)
         {
-            var p = vk.Users.Get(arrid);
-            foreach (User u in p)
+            uint errors = 0;
+            User u = vk.Users.Get(new long[] { id }).FirstOrDefault();
+            graph.AddVertex(u.Id);
+            try
             {
-                graph.AddVertex(u.Id);
                 var f = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
                 {
-                    UserId = u.Id,
-                    Fields = ProfileFields.FirstName,
+                    UserId = id,
                 });
+
+                if (now < depth)
+                {
+                    foreach (var x in f)
+                    {
+                        FillVertex(x.Id, now + 1, depth);
+                    }
+                }
+                if (now == depth)
+                {
+
+                }
             }
-            return 1;
+            catch
+            {
+                errors++;
+            }
+            return errors;
         }
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -62,6 +79,8 @@ namespace VKTree
             p.Show();
             Stopwatch w = new Stopwatch();
             w.Start();
+            errors = FillVertex(id, 0, depth);
+
             graph.AddVertex(id);
             var f = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
             {
@@ -86,19 +105,19 @@ namespace VKTree
                         graph.AddEdge(u.Id, n);
                     }
                 }
-                catch// (VkNet.Exception.CannotBlacklistYourselfException)
+                catch
                 {
                     errors++;
                 }
             }
-            
+
             var vertex = vk.Users.Get(graph.edges.Keys.ToArray<long>());
             foreach (var x in vertex)
             {
                 listBoxV.Items.Add(x.Id + " " + x.FirstName + " " + x.LastName);
             }
-            ErrorLabel.Text = "Errors: " + errors.ToString();
             w.Stop();
+            ErrorLabel.Text = "Errors: " + errors.ToString();
             TimeLabel.Text = "Time: " + w.Elapsed.Minutes + "m " + w.Elapsed.Seconds + "s ";
             p.Close();
             this.Show();
@@ -142,14 +161,7 @@ namespace VKTree
         private void listBoxV_SelectedIndexChanged(object sender, EventArgs e)
         {
             listBoxE.Items.Clear();
-            int pos = listBoxV.SelectedItem.ToString().IndexOf(' ');
-            long id = Int64.Parse((listBoxV.SelectedItem.ToString().Substring(0, pos)));
-            long[] ids = graph.edges[id].ToArray<long>();
-            var x = vk.Users.Get(ids);
-            foreach (User u in x)
-            {
-                listBoxE.Items.Add(u.Id + " " + u.FirstName +  " " + u.LastName);
-            }
+            
         }
     }
 }
