@@ -19,8 +19,8 @@ namespace VKTree
     public partial class MainForm : Form
     {
         VkApi vk = new VkApi();
-        //Graph<User> graph = new Graph<User>();
-        Graph<long> graph = new Graph<long>();
+        Graph<User> graph = new Graph<User>();
+        //Graph<long> graph = new Graph<long>();
 
         public MainForm()
         {
@@ -31,7 +31,7 @@ namespace VKTree
         {
             uint errors = 0;
             User u = vk.Users.Get(new long[] { id }).FirstOrDefault();
-            graph.AddVertex(u.Id);
+            graph.AddVertex(u);
             try
             {
                 var f = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
@@ -64,7 +64,6 @@ namespace VKTree
             listBoxV.Items.Clear();
             listBoxE.Items.Clear();
             graph.Clear();
-            uint errors = 0;
             if (!Int64.TryParse(UserIDTextBox.Text, out long id))
             {
                 MessageBox.Show("Cannot resolve field User ID!", "Error");
@@ -75,49 +74,16 @@ namespace VKTree
                 MessageBox.Show("Cannot resolve field Depth! (Natural number required)", "Error");
                 return;
             }
+            uint errors = FillVertex(id, 0, depth);
             this.Hide();
             Progress p = new Progress();
             p.Show();
             Stopwatch w = new Stopwatch();
             w.Start();
             errors = FillVertex(id, 0, depth);
-
-            graph.AddVertex(id);
-            var f = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
-            {
-                UserId = id,
-            });
-            foreach (User u in f)
-            {
-                graph.AddVertex(u.Id);
-                graph.AddEdge(id, u.Id);
-            }
-            foreach (User u in f)
-            {
-                try
-                {
-                    var ids = vk.Friends.GetMutual(new VkNet.Model.RequestParams.FriendsGetMutualParams
-                    {
-                        TargetUid = u.Id,
-                        SourceUid = id
-                    });
-                    foreach (long n in ids)
-                    {
-                        graph.AddEdge(u.Id, n);
-                    }
-                }
-                catch
-                {
-                    errors++;
-                }
-            }
-
-            var vertex = vk.Users.Get(graph.edges.Keys.ToArray<long>());
-            foreach (var x in vertex)
-            {
-                listBoxV.Items.Add(x.Id + " " + x.FirstName + " " + x.LastName);
-            }
             w.Stop();
+            foreach (var x in graph.vertexes())
+                listBoxV.Items.Add(x.FirstName + " " + x.LastName);
             ErrorLabel.Text = "Errors: " + errors.ToString();
             TimeLabel.Text = "Time: " + w.Elapsed.Minutes + "m " + w.Elapsed.Seconds + "s ";
             p.Close();
