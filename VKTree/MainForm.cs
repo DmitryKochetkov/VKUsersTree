@@ -20,7 +20,6 @@ namespace VKTree
     {
         VkApi vk = new VkApi();
         Graph<User> graph = new Graph<User>();
-        //Graph<long> graph = new Graph<long>();
 
         public MainForm()
         {
@@ -30,7 +29,7 @@ namespace VKTree
         public uint FillVertex(long id, int now, int depth)
         {
             uint errors = 0;
-            User u = vk.Users.Get(new long[] { id }).FirstOrDefault();
+            User u = vk.Users.Get(new long[] { id }, ProfileFields.Photo200).FirstOrDefault();
             graph.AddVertex(u);
             try
             {
@@ -38,18 +37,16 @@ namespace VKTree
                 {
                     UserId = id,
                     Count = 5,
+                    Order = VkNet.Enums.SafetyEnums.FriendsOrder.Hints,
                 });
 
                 if (now < depth)
                 {
                     foreach (var x in f)
                     {
+                        //graph.AddEdge(u, x);
                         FillVertex(x.Id, now + 1, depth);
                     }
-                }
-                if (now == depth)
-                {
-
                 }
             }
             catch
@@ -74,7 +71,7 @@ namespace VKTree
                 MessageBox.Show("Cannot resolve field Depth! (Natural number required)", "Error");
                 return;
             }
-            uint errors = FillVertex(id, 0, depth);
+            uint errors = 0;
             this.Hide();
             Progress p = new Progress();
             p.Show();
@@ -86,6 +83,8 @@ namespace VKTree
                 listBoxV.Items.Add(x.FirstName + " " + x.LastName);
             ErrorLabel.Text = "Errors: " + errors.ToString();
             TimeLabel.Text = "Time: " + w.Elapsed.Minutes + "m " + w.Elapsed.Seconds + "s ";
+            VertexesLabel.Text = "Vertexes: " + graph.vertexes().Count;
+            EdgesLabel.Text = "Edges: " + 0;
             p.Close();
             this.Show();
         }
@@ -118,17 +117,14 @@ namespace VKTree
             TokenReceived.Text = "Access token received!";
             TokenReceived.ForeColor = Color.Green;
             StartButton.Enabled = true;
+            pictureBox1.ImageLocation = vk.Users.Get(new long[] { vk.UserId.Value }, ProfileFields.Photo200).FirstOrDefault().Photo200.ToString();
+            pictureBox1.Load();
         }
 
         private void listBoxV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //listBoxE.Items.Clear();
-            //String s = listBoxV.SelectedItem.ToString();
-            //var f = vk.Friends.Get(new long[] { Int64.Parse(s.Substring(0, s.IndexOf(" "))) });
-            //foreach (User u in f)
-            //{
-            //    listBoxE.Items.Add(u.Id + " " + u.FirstName + " " + u.LastName);
-            //}
+            pictureBox1.ImageLocation = graph.vertexes()[listBoxV.SelectedIndex].Photo200.ToString(); //немножко костыльно
+            pictureBox1.Load();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

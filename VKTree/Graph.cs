@@ -18,19 +18,22 @@ namespace VKTree
         public Graph(T x)
         {
             dat = new Dictionary<T, HashSet<T>>();
-            dat[x] = new HashSet<T>();
+            dat.Add(x, new HashSet<T>());
         }
 
         public void AddVertex(T x)
         {
             if (!dat.ContainsKey(x))
-                dat[x] = new HashSet<T>();
+                dat.Add(x, new HashSet<T>());
         }
 
         public void AddEdge(T x1, T x2)
         {
-            dat[x1].Add(x2);
-            dat[x2].Add(x1);
+            if (dat.ContainsKey(x1) && dat.ContainsKey(x2))
+            {
+                dat[x1].Add(x2);
+                dat[x2].Add(x1);
+            }
         }
 
         public void Clear()

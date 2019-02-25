@@ -32,10 +32,8 @@
             this.UserIDTextBox = new System.Windows.Forms.TextBox();
             this.StartButton = new System.Windows.Forms.Button();
             this.listBoxV = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.AppIDTextBox = new System.Windows.Forms.TextBox();
             this.LoginTextBox = new System.Windows.Forms.TextBox();
             this.PassTextBox = new System.Windows.Forms.TextBox();
             this.GetTokenButton = new System.Windows.Forms.Button();
@@ -48,7 +46,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.ErrorLabel = new System.Windows.Forms.Label();
+            this.VertexesLabel = new System.Windows.Forms.Label();
+            this.EdgesLabel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -90,21 +92,11 @@
             this.listBoxV.TabIndex = 3;
             this.listBoxV.SelectedIndexChanged += new System.EventHandler(this.listBoxV_SelectedIndexChanged);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(43, 33);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 20);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Application ID:";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(43, 71);
+            this.label3.Location = new System.Drawing.Point(47, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 20);
             this.label3.TabIndex = 5;
@@ -114,30 +106,22 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(43, 106);
+            this.label4.Location = new System.Drawing.Point(47, 68);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(91, 20);
             this.label4.TabIndex = 6;
             this.label4.Text = "Password:";
             // 
-            // AppIDTextBox
-            // 
-            this.AppIDTextBox.Location = new System.Drawing.Point(176, 33);
-            this.AppIDTextBox.Name = "AppIDTextBox";
-            this.AppIDTextBox.Size = new System.Drawing.Size(152, 20);
-            this.AppIDTextBox.TabIndex = 7;
-            this.AppIDTextBox.Text = "6852311";
-            // 
             // LoginTextBox
             // 
-            this.LoginTextBox.Location = new System.Drawing.Point(121, 71);
+            this.LoginTextBox.Location = new System.Drawing.Point(125, 33);
             this.LoginTextBox.Name = "LoginTextBox";
             this.LoginTextBox.Size = new System.Drawing.Size(152, 20);
             this.LoginTextBox.TabIndex = 8;
             // 
             // PassTextBox
             // 
-            this.PassTextBox.Location = new System.Drawing.Point(140, 106);
+            this.PassTextBox.Location = new System.Drawing.Point(144, 68);
             this.PassTextBox.Name = "PassTextBox";
             this.PassTextBox.PasswordChar = '*';
             this.PassTextBox.Size = new System.Drawing.Size(152, 20);
@@ -146,7 +130,7 @@
             // GetTokenButton
             // 
             this.GetTokenButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.GetTokenButton.Location = new System.Drawing.Point(47, 148);
+            this.GetTokenButton.Location = new System.Drawing.Point(51, 110);
             this.GetTokenButton.Name = "GetTokenButton";
             this.GetTokenButton.Size = new System.Drawing.Size(245, 36);
             this.GetTokenButton.TabIndex = 10;
@@ -159,7 +143,7 @@
             this.TokenReceived.AutoSize = true;
             this.TokenReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.TokenReceived.ForeColor = System.Drawing.Color.Firebrick;
-            this.TokenReceived.Location = new System.Drawing.Point(73, 212);
+            this.TokenReceived.Location = new System.Drawing.Point(77, 174);
             this.TokenReceived.Name = "TokenReceived";
             this.TokenReceived.Size = new System.Drawing.Size(191, 20);
             this.TokenReceived.TabIndex = 11;
@@ -197,6 +181,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.EdgesLabel);
+            this.groupBox1.Controls.Add(this.VertexesLabel);
             this.groupBox1.Controls.Add(this.TimeLabel);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -214,7 +200,7 @@
             // TimeLabel
             // 
             this.TimeLabel.AutoSize = true;
-            this.TimeLabel.Location = new System.Drawing.Point(227, 328);
+            this.TimeLabel.Location = new System.Drawing.Point(343, 328);
             this.TimeLabel.Name = "TimeLabel";
             this.TimeLabel.Size = new System.Drawing.Size(54, 15);
             this.TimeLabel.TabIndex = 18;
@@ -243,17 +229,44 @@
             // ErrorLabel
             // 
             this.ErrorLabel.AutoSize = true;
-            this.ErrorLabel.Location = new System.Drawing.Point(124, 328);
+            this.ErrorLabel.Location = new System.Drawing.Point(257, 328);
             this.ErrorLabel.Name = "ErrorLabel";
             this.ErrorLabel.Size = new System.Drawing.Size(53, 15);
             this.ErrorLabel.TabIndex = 15;
             this.ErrorLabel.Text = "Errors: 0";
+            // 
+            // VertexesLabel
+            // 
+            this.VertexesLabel.AutoSize = true;
+            this.VertexesLabel.Location = new System.Drawing.Point(56, 328);
+            this.VertexesLabel.Name = "VertexesLabel";
+            this.VertexesLabel.Size = new System.Drawing.Size(67, 15);
+            this.VertexesLabel.TabIndex = 19;
+            this.VertexesLabel.Text = "Vertexes: 0";
+            // 
+            // EdgesLabel
+            // 
+            this.EdgesLabel.AutoSize = true;
+            this.EdgesLabel.Location = new System.Drawing.Point(165, 328);
+            this.EdgesLabel.Name = "EdgesLabel";
+            this.EdgesLabel.Size = new System.Drawing.Size(55, 15);
+            this.EdgesLabel.TabIndex = 20;
+            this.EdgesLabel.Text = "Edges: 0";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(77, 231);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(200, 200);
+            this.pictureBox1.TabIndex = 16;
+            this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(797, 478);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.DepthTextBox);
             this.Controls.Add(this.label5);
@@ -261,10 +274,8 @@
             this.Controls.Add(this.GetTokenButton);
             this.Controls.Add(this.PassTextBox);
             this.Controls.Add(this.LoginTextBox);
-            this.Controls.Add(this.AppIDTextBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.UserIDTextBox);
             this.Controls.Add(this.label1);
@@ -276,6 +287,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -287,10 +299,8 @@
         private System.Windows.Forms.TextBox UserIDTextBox;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.ListBox listBoxV;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox AppIDTextBox;
         private System.Windows.Forms.TextBox LoginTextBox;
         private System.Windows.Forms.TextBox PassTextBox;
         private System.Windows.Forms.Button GetTokenButton;
@@ -303,6 +313,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label TimeLabel;
+        private System.Windows.Forms.Label EdgesLabel;
+        private System.Windows.Forms.Label VertexesLabel;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
