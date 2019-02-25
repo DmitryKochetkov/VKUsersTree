@@ -123,7 +123,9 @@ namespace VKTree
 
         private void listBoxV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pictureBox1.ImageLocation = graph.vertexes()[listBoxV.SelectedIndex].Photo200.ToString(); //немножко костыльно
+            var x = graph.vertexes()[listBoxV.SelectedIndex].Photo200;
+            if (x != null)
+            pictureBox1.ImageLocation = x.ToString(); //немножко костыльно
             pictureBox1.Load();
         }
 
