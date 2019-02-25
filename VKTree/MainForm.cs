@@ -37,6 +37,7 @@ namespace VKTree
                 var f = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
                 {
                     UserId = id,
+                    Count = 5,
                 });
 
                 if (now < depth)
@@ -125,19 +126,14 @@ namespace VKTree
 
         private void GetTokenButton_Click(object sender, EventArgs e)
         {
-            if (!UInt64.TryParse(AppIDTextBox.Text, out ulong aid))
-            {
-                MessageBox.Show("Cannot resolve field Application ID!", "Error");
-                return;
-            }
             try
             {
                 vk.Authorize(new ApiAuthParams
                 {
-                    ApplicationId = aid,
+                    ApplicationId = 6852311,
                     Login = LoginTextBox.Text,
                     Password = PassTextBox.Text,
-                    Settings = Settings.All
+                    Settings = Settings.Offline
                 });
             }
             catch (VkNet.Exception.VkApiException)
@@ -160,8 +156,18 @@ namespace VKTree
 
         private void listBoxV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listBoxE.Items.Clear();
-            
+            //listBoxE.Items.Clear();
+            //String s = listBoxV.SelectedItem.ToString();
+            //var f = vk.Friends.Get(new long[] { Int64.Parse(s.Substring(0, s.IndexOf(" "))) });
+            //foreach (User u in f)
+            //{
+            //    listBoxE.Items.Add(u.Id + " " + u.FirstName + " " + u.LastName);
+            //}
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            vk.LogOut();
         }
     }
 }

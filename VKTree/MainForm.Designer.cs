@@ -44,10 +44,10 @@
             this.DepthTextBox = new System.Windows.Forms.TextBox();
             this.listBoxE = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ErrorLabel = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.TimeLabel = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.ErrorLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -211,24 +211,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output";
             // 
-            // ErrorLabel
+            // TimeLabel
             // 
-            this.ErrorLabel.AutoSize = true;
-            this.ErrorLabel.Location = new System.Drawing.Point(124, 328);
-            this.ErrorLabel.Name = "ErrorLabel";
-            this.ErrorLabel.Size = new System.Drawing.Size(53, 15);
-            this.ErrorLabel.TabIndex = 15;
-            this.ErrorLabel.Text = "Errors: 0";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(84, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(69, 16);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Vertexes";
+            this.TimeLabel.AutoSize = true;
+            this.TimeLabel.Location = new System.Drawing.Point(227, 328);
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(54, 15);
+            this.TimeLabel.TabIndex = 18;
+            this.TimeLabel.Text = "Time: 0s";
             // 
             // label7
             // 
@@ -240,14 +230,24 @@
             this.label7.TabIndex = 17;
             this.label7.Text = "Edges";
             // 
-            // TimeLabel
+            // label6
             // 
-            this.TimeLabel.AutoSize = true;
-            this.TimeLabel.Location = new System.Drawing.Point(227, 328);
-            this.TimeLabel.Name = "TimeLabel";
-            this.TimeLabel.Size = new System.Drawing.Size(54, 15);
-            this.TimeLabel.TabIndex = 18;
-            this.TimeLabel.Text = "Time: 0s";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(84, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 16);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Vertexes";
+            // 
+            // ErrorLabel
+            // 
+            this.ErrorLabel.AutoSize = true;
+            this.ErrorLabel.Location = new System.Drawing.Point(124, 328);
+            this.ErrorLabel.Name = "ErrorLabel";
+            this.ErrorLabel.Size = new System.Drawing.Size(53, 15);
+            this.ErrorLabel.TabIndex = 15;
+            this.ErrorLabel.Text = "Errors: 0";
             // 
             // MainForm
             // 
@@ -273,6 +273,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VKTree";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
