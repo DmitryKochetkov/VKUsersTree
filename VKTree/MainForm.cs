@@ -38,6 +38,7 @@ namespace VKTree
                     UserId = id,
                     Count = 5,
                     Order = VkNet.Enums.SafetyEnums.FriendsOrder.Hints,
+                    Fields = ProfileFields.All,
                 });
 
                 if (now < depth)
@@ -79,11 +80,11 @@ namespace VKTree
             w.Start();
             errors = FillVertex(id, 0, depth);
             w.Stop();
-            foreach (var x in graph.vertexes())
+            foreach (var x in graph.Vertexes())
                 listBoxV.Items.Add(x.FirstName + " " + x.LastName);
             ErrorLabel.Text = "Errors: " + errors.ToString();
             TimeLabel.Text = "Time: " + w.Elapsed.Minutes + "m " + w.Elapsed.Seconds + "s ";
-            VertexesLabel.Text = "Vertexes: " + graph.vertexes().Count;
+            VertexesLabel.Text = "Vertexes: " + graph.Vertexes().Count;
             EdgesLabel.Text = "Edges: " + 0;
             p.Close();
             this.Show();
@@ -123,10 +124,15 @@ namespace VKTree
 
         private void listBoxV_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var x = graph.vertexes()[listBoxV.SelectedIndex].Photo200;
+            listBoxE.Items.Clear();
+
+            var x = graph.Vertexes()[listBoxV.SelectedIndex].Photo200;
             if (x != null)
             pictureBox1.ImageLocation = x.ToString(); //немножко костыльно
             pictureBox1.Load();
+
+            foreach (User u in graph.Edges(graph.Vertexes()[listBoxV.SelectedIndex]))
+                listBoxE.Items.Add(u.FirstName + " " + u.LastName);
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

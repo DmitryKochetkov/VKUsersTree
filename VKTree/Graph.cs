@@ -23,7 +23,11 @@ namespace VKTree
 
         public void AddVertex(T x)
         {
-            if (!dat.ContainsKey(x))
+            bool f = false;
+            foreach (T k in dat.Keys)
+                if (x.Equals(k))
+                    f = true;
+                    if (!f)
                 dat.Add(x, new HashSet<T>());
         }
 
@@ -40,7 +44,10 @@ namespace VKTree
             dat.Clear();
         }
 
-        public List<T> vertexes()
+        public List<T> Vertexes()
         { return dat.Keys.ToList(); }
+
+        public List<T> Edges(T x)
+        { return dat[x].ToList(); }
     }
 }
