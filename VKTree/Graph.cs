@@ -29,11 +29,10 @@ namespace VKTree
 
         public void AddEdge(T x1, T x2)
         {
-            if (dat.ContainsKey(x1) && dat.ContainsKey(x2))
-            {
+            if (dat.ContainsKey(x1))
                 dat[x1].Add(x2);
+            if (dat.ContainsKey(x2))
                 dat[x2].Add(x1);
-            }
         }
 
         public void Clear()

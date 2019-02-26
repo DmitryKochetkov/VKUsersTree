@@ -44,7 +44,7 @@ namespace VKTree
                 {
                     foreach (var x in f)
                     {
-                        //graph.AddEdge(u, x);
+                        graph.AddEdge(u, x);
                         FillVertex(x.Id, now + 1, depth);
                     }
                 }
