@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VKTree", "VKTree\VKTree.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphTest", "GraphTest\GraphTest.csproj", "{D13E0804-0FAB-4011-8328-AD9949AF52AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserEquality", "UserEquality\UserEquality.csproj", "{0372C4B1-354A-45CD-9552-F1F6A50AA965}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D13E0804-0FAB-4011-8328-AD9949AF52AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D13E0804-0FAB-4011-8328-AD9949AF52AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D13E0804-0FAB-4011-8328-AD9949AF52AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0372C4B1-354A-45CD-9552-F1F6A50AA965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0372C4B1-354A-45CD-9552-F1F6A50AA965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0372C4B1-354A-45CD-9552-F1F6A50AA965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0372C4B1-354A-45CD-9552-F1F6A50AA965}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
