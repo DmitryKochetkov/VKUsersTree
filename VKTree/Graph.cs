@@ -31,12 +31,18 @@ namespace VKTree
                 dat.Add(x, new HashSet<T>());
         }
 
-        public void AddEdge(T x1, T x2)
+        public void AddEdge(T x1, T x2) //?
         {
-            if (dat.ContainsKey(x1))
+            //if (dat.ContainsKey(x1))
+            //    dat[x1].Add(x2);
+            //if (dat.ContainsKey(x2))
+            //    dat[x2].Add(x1);
+            if (dat.ContainsKey(x1) && dat.ContainsKey(x2))
+            {
                 dat[x1].Add(x2);
-            if (dat.ContainsKey(x2))
                 dat[x2].Add(x1);
+            }
+            else throw new ArgumentOutOfRangeException();
         }
 
         public void Clear()
@@ -48,6 +54,10 @@ namespace VKTree
         { return dat.Keys.ToList(); }
 
         public List<T> Edges(T x)
-        { return dat[x].ToList(); }
+        {
+            if (dat.ContainsKey(x))
+                return dat[x].ToList();
+            else return null;
+        }
     }
 }

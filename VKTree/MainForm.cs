@@ -19,7 +19,8 @@ namespace VKTree
     public partial class MainForm : Form
     {
         VkApi vk = new VkApi();
-        Graph<User> graph = new Graph<User>();
+        //Graph<User> graph = new Graph<User>();
+        VKGraph graph = new VKGraph();
 
         public MainForm()
         {
@@ -28,31 +29,44 @@ namespace VKTree
 
         public uint FillVertex(long id, int now, int depth)
         {
+            //now++;
             uint errors = 0;
-            User u = vk.Users.Get(new long[] { id }, ProfileFields.Photo200).FirstOrDefault();
+            User u = vk.Users.Get(new long[] { id }, ProfileFields.LastName | ProfileFields.FirstName | ProfileFields.ScreenName | ProfileFields.Photo200).FirstOrDefault(); //лишняя операция, для всех уровней кроме первого (добавление ниже)
             graph.AddVertex(u);
+            VkNet.Utils.VkCollection<User> f;
             try
             {
-                var f = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
+                f = vk.Friends.Get(new VkNet.Model.RequestParams.FriendsGetParams
                 {
                     UserId = id,
-                    Count = 5,
+                    Count = 3,
                     Order = VkNet.Enums.SafetyEnums.FriendsOrder.Hints,
-                    Fields = ProfileFields.All,
+                    Fields = ProfileFields.FirstName | ProfileFields.LastName | ProfileFields.Photo200 | ProfileFields.ScreenName,
                 });
 
                 if (now < depth)
                 {
                     foreach (var x in f)
                     {
+                        graph.AddVertex(x);
                         graph.AddEdge(u, x);
-                        FillVertex(x.Id, now + 1, depth);
                     }
+                    foreach (var x in f)
+                    {
+                        if (now < depth)
+                            FillVertex(x.Id, now + 1, depth);
+                    }
+
                 }
+                if (now == depth)
+                    foreach (var x in f)
+                        foreach (var y in f)
+                            //if (vk.Friends.AreFriends(new long[] { x.Id, y.Id }))
+                                graph.AddEdge(x, y);
             }
-            catch
+            catch (VkNet.Exception.VkApiException)
             {
-                errors++;
+                errors += 1;
             }
             return errors;
         }
@@ -102,6 +116,11 @@ namespace VKTree
                     Settings = Settings.Offline
                 });
             }
+            catch (System.AggregateException)
+            {
+                MessageBox.Show("No internet connection", "Error");
+                return;
+            }
             catch (VkNet.Exception.VkApiException)
             {
                 TokenReceived.Text = "Have no access token!";
@@ -118,7 +137,9 @@ namespace VKTree
             TokenReceived.Text = "Access token received!";
             TokenReceived.ForeColor = Color.Green;
             StartButton.Enabled = true;
-            pictureBox1.ImageLocation = vk.Users.Get(new long[] { vk.UserId.Value }, ProfileFields.Photo200).FirstOrDefault().Photo200.ToString();
+            var x = vk.Users.Get(new long[] { vk.UserId.Value }, ProfileFields.Photo200).FirstOrDefault().Photo200;
+            if (x != null)
+            pictureBox1.ImageLocation = x.ToString();
             pictureBox1.Load();
         }
 
